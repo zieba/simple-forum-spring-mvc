@@ -74,4 +74,9 @@ public class UserService {
 		
 		
 	}
+
+	public User findOneWithTopics(String name) {
+		User user = userRepository.findByName(name);
+		return findOneWithTopics(user.getId());
+	}
 }
