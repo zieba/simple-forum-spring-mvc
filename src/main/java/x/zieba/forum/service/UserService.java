@@ -43,7 +43,7 @@ public class UserService {
 		User user = findOne(id);
 		List<Post> posts = postRepository.findByUser(user);
 		for (Post post : posts) {
-			Topic topic = findOneTopic(1);
+			Topic topic = findOneTopic(post.getTopic().getId());
 			post.setTopic(topic);
 		}
 		user.setPosts(posts);
