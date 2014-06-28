@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import x.zieba.forum.entity.Post;
-import x.zieba.forum.entity.Topic;
 import x.zieba.forum.entity.User;
 import x.zieba.forum.service.UserService;
 

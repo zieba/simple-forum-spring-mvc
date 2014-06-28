@@ -36,4 +36,10 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
 		<put-attribute name="current" value="login" />
 	</definition>
+	
+	<definition name="topic" extends="common">
+		<put-attribute name="title" value="Temat" />
+		<put-attribute name="body" value="/WEB-INF/jsp/topic.jsp" />
+		<put-attribute name="current" value="" />
+	</definition>
 </tiles-definitions>
