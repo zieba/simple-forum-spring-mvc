@@ -6,7 +6,7 @@
 
 <h1>${user.name}</h1>
 
-
+<p>20 ostatnich postów</p>
 
 
 

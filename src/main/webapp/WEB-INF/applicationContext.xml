@@ -40,5 +40,8 @@
 	</bean>
 
 	<jpa:repositories base-package="x.zieba.forum.repository" />
+	
+	<import resource="security.xml"/>
+	
 
 </beans>

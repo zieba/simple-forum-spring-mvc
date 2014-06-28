@@ -6,6 +6,7 @@
 <head>
 
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -46,12 +47,20 @@
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li class="${current == 'index'? 'active': ''}"><a href="<spring:url value="/" />">Strona główna</a></li>
+						<security:authorize access="hasRole('ROLE_USER')">
 						<li class="${current == 'users'? 'active': ''}"><a href="<spring:url value="/users.html" />">Użytkownicy</a></li>
+						</security:authorize>
 						<li><a href="#">coś</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Zarejestruj</a></li>
-						<li><a href="#">Zaloguj</a></li>
+						<security:authorize access="! isAuthenticated()">
+							<li class="${current == 'user-register'? 'active': ''}"><a href="<spring:url value="/register.html" />">Zarejestruj</a></li>
+							<li class="${current == 'login'? 'active': ''}"><a href="<spring:url value="/login.html" />">Zaloguj</a></li>
+						</security:authorize>
+						
+						<security:authorize access="isAuthenticated()">
+							<li><a href="<spring:url value="/logout" />">Wyloguj</a></li>
+						</security:authorize>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -63,11 +72,9 @@
 
 		<br> <br>
 
-		<center>
-			<tiles:insertAttribute name="footer" />
-		</center>
+
 
 	</div>
-
+	<tiles:insertAttribute name="footer" />
 </body>
 </html>
