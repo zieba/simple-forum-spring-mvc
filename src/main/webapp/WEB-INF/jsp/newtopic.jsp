@@ -6,14 +6,14 @@
 <form action="newtopic.html" method="post">
 
 	<spring:bind path="topic.name">
-		<input type="text" name="${status.expression}" value="${status.value}">
+		<input type="text" name="${status.expression}" value="${status.value}" class="form-control" placeholder="Nazwa tematu">
 		<br />
 	</spring:bind>
 
 	<spring:bind path="post.text">
-		<input type="text" name="${status.expression}" value="${status.value}">
+		<textarea name="${status.expression}" value="${status.value}" class="form-control" rows="10" placeholder="Twój post"></textarea>
 		<br />
 	</spring:bind>
 
-	<input type="submit" value="Create" />
+	<input type="submit" value="Utwórz" class="btn btn-lg btn-primary" />
 </form>
