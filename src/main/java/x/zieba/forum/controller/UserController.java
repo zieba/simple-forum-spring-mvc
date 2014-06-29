@@ -121,7 +121,22 @@ public class UserController {
 		return "redirect:/topic/" + idTopic + ".html";
 	}
 	
+	@RequestMapping("/topic/remove/{id}")
+	public String removeTopic(@PathVariable int id) {
+		topicService.delete(id);
+		return "redirect:/index.html";
+	}
 	
+	@RequestMapping("/user/remove/{id}")
+	public String removeUser(@PathVariable int id) {
+		userService.delete(id);
+		return "redirect:/users.html";
+	}
 	
+	@RequestMapping("/post/remove/{id}")
+	public String removePost(@PathVariable int id){
+		postService.delete(id);
+		return "redirect:/index.html";
+	}
 
 }

@@ -37,4 +37,8 @@ public class PostService {
 		post.setPublishedDate(new Date());
 		postRepository.save(post);
 	}
+
+	public void delete(int id) {
+		postRepository.delete(id);
+	}
 }

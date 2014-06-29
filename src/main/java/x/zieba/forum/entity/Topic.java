@@ -2,6 +2,7 @@ package x.zieba.forum.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Topic {
 
 	private String name;
 	
-	@OneToMany(mappedBy = "topic")
+	@OneToMany(mappedBy = "topic", cascade=CascadeType.REMOVE)
 	private List<Post> posts;
 
 	public Integer getId() {

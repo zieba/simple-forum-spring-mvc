@@ -57,4 +57,8 @@ public class TopicService {
 		postRepository.save(post);			
 	}
 
+	public void delete(int id) {
+		topicRepository.delete(id);
+	}
+
 }

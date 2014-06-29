@@ -6,7 +6,7 @@
 
 <h1>${topic.name}</h1>
 
-<strong><a href="<spring:url value="/newpost.html?id=${topic.id}" />"> Napisz odpowiedź</a></strong>
+<strong><a href="<spring:url value="/newpost.html?id=${topic.id}" />" class="btn btn-info">Odpowiedz</a></strong>
 
 
 
@@ -18,7 +18,10 @@
 			<tr>
 				<td>
 					<strong>${post.user.name}</strong>
+					<p>Post dodany:</p>
 					<p>${post.publishedDate}</p>
+					<br />
+					<a href="<spring:url value="/post/remove/${post.id}.html" />" class="btn btn-danger btn-sm">Usuń post</a>
 				
 				</td>
 				<td><p>${post.text}</p></td>
