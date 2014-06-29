@@ -118,7 +118,7 @@ public class UserController {
 	public String newPost(@ModelAttribute("post") Post post, Principal principal) {
 		String name = principal.getName();
 		postService.save(post, name, idTopic);
-		return "redirect:/index.html";
+		return "redirect:/topic/" + idTopic + ".html";
 	}
 	
 	
