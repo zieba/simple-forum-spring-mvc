@@ -49,8 +49,9 @@
 						<li class="${current == 'index'? 'active': ''}"><a href="<spring:url value="/" />">Strona główna</a></li>
 						<security:authorize access="hasRole('ROLE_USER')">
 						<li class="${current == 'users'? 'active': ''}"><a href="<spring:url value="/users.html" />">Użytkownicy</a></li>
+						<li class="${current == 'newtopic'? 'active': ''}"><a href="<spring:url value="/newtopic.html" />">Nowy temat</a></li>
 						</security:authorize>
-						<li><a href="#">coś</a></li>
+						
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<security:authorize access="! isAuthenticated()">

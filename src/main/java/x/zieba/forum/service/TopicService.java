@@ -1,5 +1,6 @@
 package x.zieba.forum.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,15 @@ public class TopicService {
 
 	public void save(Topic topic) {
 		topicRepository.save(topic);
+	}
+
+	public void saveTopic(Topic topic, Post post, String name) {
+		topicRepository.save(topic);
+		User user = userRepository.findByName(name);
+		post.setUser(user);
+		post.setTopic(topic);
+		post.setPublishedDate(new Date());
+		postRepository.save(post);			
 	}
 
 }

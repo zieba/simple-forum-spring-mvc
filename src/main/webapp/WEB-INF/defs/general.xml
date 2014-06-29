@@ -43,4 +43,10 @@
 		<put-attribute name="current" value="" />
 	</definition>
 	
+	<definition name="newtopic" extends="common">
+		<put-attribute name="title" value="Nowy temat" />
+		<put-attribute name="body" value="/WEB-INF/jsp/newtopic.jsp" />
+		<put-attribute name="current" value="newtopic" />
+	</definition>
+	
 </tiles-definitions>

@@ -14,8 +14,6 @@ public class IndexController {
 	@Autowired
 	private TopicService topicService;
 	
-	
-	
 	@RequestMapping(value = "/topic")
 	public String viewTopic(Model model, @RequestParam("id") int id) {
 		model.addAttribute("topic", topicService.findOneWithPosts(id));
