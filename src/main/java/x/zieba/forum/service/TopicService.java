@@ -43,4 +43,8 @@ public class TopicService {
 		 return topic;
 	}
 
+	public void save(Topic topic) {
+		topicRepository.save(topic);
+	}
+
 }

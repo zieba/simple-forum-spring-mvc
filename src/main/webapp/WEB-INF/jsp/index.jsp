@@ -5,8 +5,11 @@
 
 	<!-- Button trigger modal -->
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
+  Stwórz nowy temat
 </button>
+
+<form:form commandName="topic" cssClass="form-horizontal">
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -18,16 +21,26 @@
       </div>
       <div class="modal-body">
       
-      
-      
+      <div class="form-group">
+		<label for="name" class="col-sm-2 control-label">Nazwa:</label>
+		<div class="col-sm-10">
+			<form:input path="name" cssClass="form-control" />
+		</div>
+	</div>
+     <div class="form-group">
+		<div class="col-sm-2">
+			
+		</div>
+	</div> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <input type="submit" value="Stwórz" class="btn btn-lg btn-primary" />
       </div>
     </div>
   </div>
 </div>
+</form:form>
 
 <br /> <br />
 
@@ -41,7 +54,7 @@
 		<c:forEach items="${topics}" var="topic">
 			<tr>
 				<td>
-					<a href="<spring:url value="/topic/${topic.id}.html" />">${topic.name}</a>
+					<a href="<spring:url value="/topic.html?id=${topic.id}" />">${topic.name}</a>
 				</td>
 			</tr>
 		</c:forEach>

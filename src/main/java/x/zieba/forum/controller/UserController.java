@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import x.zieba.forum.entity.Post;
+import x.zieba.forum.entity.Topic;
 import x.zieba.forum.entity.User;
 import x.zieba.forum.service.PostService;
+import x.zieba.forum.service.TopicService;
 import x.zieba.forum.service.UserService;
 
 @Controller
@@ -24,20 +25,21 @@ public class UserController {
 	@Autowired
 	private PostService postService;
 	
+	@Autowired
+	private TopicService topicService;
 	
 	@ModelAttribute("user")
 	public User constructUser() {
 		return new User();
 	}
 	
-
-	@ModelAttribute("post")
-	public Post constructPost() {
-		return new Post();
+	@ModelAttribute("topic")
+	public Topic constructTopic() {
+		return new Topic();
 	}
 	
 	@RequestMapping("/users")
-	public String users(Model model) {
+	public String allUsers(Model model) {
 		model.addAttribute("users", userService.findAll());
 		return "users";
 	}
@@ -66,12 +68,16 @@ public class UserController {
 		return "user-detail";
 	}
 	
-	@RequestMapping(value="/topic/{id}", method=RequestMethod.POST)
-	public String doAddPost(@ModelAttribute("post") Post post, Principal principal, @PathVariable int id) {
-		String name = principal.getName();
-		postService.save(post, name, id);
-		return "redirect:/topic/" + id;
+	@RequestMapping("/index")
+	public String users(Model model) {
+		model.addAttribute("topics", topicService.findAll());
+		return "index";
 	}
-
+	
+	@RequestMapping(value="index", method=RequestMethod.POST)
+	public String doAddTopic(@ModelAttribute("topic") Topic topic) {
+		topicService.save(topic);
+		return "redirect:/index.html";
+	}
 
 }
