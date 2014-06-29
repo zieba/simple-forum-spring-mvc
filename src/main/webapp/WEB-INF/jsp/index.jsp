@@ -3,6 +3,9 @@
 
 <%@ include file="../layout/taglib.jsp"%>
 
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$('.triggerRemove').click(function(e) {
@@ -17,18 +20,20 @@ $(document).ready(function() {
 	<thead>
 		<tr>
 			<th>Tematy</th>
-			<th>Zarządzanie</th>
+			<security:authorize access="hasRole('ROLE_ADMIN')"><th>Zarządzanie</th></security:authorize>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach items="${topics}" var="topic">
 			<tr>
 				<td>
-					<a href="<spring:url value="/topic/${topic.id}.html" />">${topic.name}</a>
+					<a href="<spring:url value="/topic/${topic.id}.html" />"><c:out value="${topic.name}" /></a>
 				</td>
-				<td>
-					<a href="<spring:url value="/topic/remove/${topic.id}.html" />" class="btn btn-danger btn-sm triggerRemove">Usuń</a>
-				</td>
+				<security:authorize access="hasRole('ROLE_ADMIN')">
+					<td>
+						<a href="<spring:url value="/topic/remove/${topic.id}.html" />" class="btn btn-danger btn-sm triggerRemove">Usuń</a>
+					</td>
+				</security:authorize>
 			</tr>
 		</c:forEach>
 	</tbody>

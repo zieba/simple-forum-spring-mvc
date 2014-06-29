@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 public class User {
@@ -17,10 +20,14 @@ public class User {
 	@GeneratedValue
 	private Integer id;
 	
+	@Size(min=3, message = "Nazwa u¿ytkownika musi mieæ minimum 3 znaki!")
 	private String name;
 	
+	@Size(min= 1, message = "Niepoprawny adres email!" )
+	@Email(message = "Niepoprawny adres email!" )
 	private String email;
 	
+	@Size(min=6, message = "Has³o musi mieæ minimum 6 znaki!")
 	private String password;
 	
 	private boolean enabled;

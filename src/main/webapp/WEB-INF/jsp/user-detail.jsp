@@ -2,25 +2,21 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/taglib.jsp"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 
-
-<h1>${user.name}</h1>
-
-<p>20 ostatnich postów</p>
-
-
+<strong><p>Ostatnie 20 postów napisanych przez użytkownika <c:out value="${user.name}" /></p></strong>
 
 
 <table class="table table-bordered table-striped">
-	<tbody>
 		<c:forEach items="${user.posts}" var="post">
 			<tr>
-				<td><h1>${post.topic.name}</h1></td>
+				<td><strong>
+					<a href="<spring:url value="/topic/${post.topic.id}.html" />"><c:out value="${post.topic.name}" /></a>
+				</strong></td>
 			</tr>
 			<tr>
-				<td><p>${post.text}</p></td>
+				<td><p><c:out value="${post.text}" /></p></td>
 			</tr>
 		</c:forEach>
-	</tbody>
-
 </table>

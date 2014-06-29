@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/taglib.jsp"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
+	
 <script type="text/javascript">
 $(document).ready(function() {
 	$('.triggerRemove').click(function(e) {
@@ -13,10 +15,11 @@ $(document).ready(function() {
 });
 </script>
 
-<h1>${topic.name}</h1>
+<h1><c:out value="${topic.name}" /></h1>
 
+<security:authorize access="isAuthenticated()">
 <strong><a href="<spring:url value="/newpost.html?id=${topic.id}" />" class="btn btn-info">Odpowiedz</a></strong>
-
+</security:authorize>
 
 
 <br /><br />
@@ -26,14 +29,17 @@ $(document).ready(function() {
 		<c:forEach items="${topic.posts}" var="post">
 			<tr>
 				<td>
-					<strong>${post.user.name}</strong>
+					<strong>
+						<a href="<spring:url value="/users/${post.user.id}.html" />"><c:out value="${post.user.name}" /></a>
+					</strong>
 					<p>Post dodany:</p>
-					<p>${post.publishedDate}</p>
+					<p><c:out value="${post.publishedDate}" /></p>
 					<br />
-					<a href="<spring:url value="/post/remove/${post.id}.html" />" class="btn btn-danger btn-sm triggerRemove">Usuń post</a>
-				
+					<security:authorize access="hasRole('ROLE_ADMIN')">
+						<a href="<spring:url value="/post/remove/${post.id}.html" />" class="btn btn-danger btn-sm triggerRemove">Usuń post</a>
+					</security:authorize>
 				</td>
-				<td><p>${post.text}</p></td>
+				<td><p><c:out value="${post.text}" /></p></td>
 			</tr>
 		</c:forEach>
 	</tbody>

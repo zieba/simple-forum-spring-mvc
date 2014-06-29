@@ -7,11 +7,13 @@
 
 	<spring:bind path="topic.name">
 		<input type="text" name="${status.expression}" value="${status.value}" class="form-control" placeholder="Nazwa tematu">
+		<form:errors path="topic.name" />
 		<br />
 	</spring:bind>
 
 	<spring:bind path="post.text">
 		<textarea name="${status.expression}" value="${status.value}" class="form-control" rows="10" placeholder="Twój post"></textarea>
+		<form:errors path="post.text" />
 		<br />
 	</spring:bind>
 

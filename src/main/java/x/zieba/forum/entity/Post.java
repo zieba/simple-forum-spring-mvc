@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Post {
@@ -16,6 +17,7 @@ public class Post {
 	@GeneratedValue
 	private Integer id;
 	
+	@Size(min=10, message = "Post musi posiadaæ co najmniej 10 znaków!")
 	private String text;
 	
 	@Column(name = "published_date")

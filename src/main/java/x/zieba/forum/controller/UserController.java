@@ -2,10 +2,13 @@ package x.zieba.forum.controller;
 
 import java.security.Principal;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +69,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String doRegister(@ModelAttribute("user") User user) {
+	public String doRegister(@Valid @ModelAttribute("user") User user, BindingResult result) {
+		if(result.hasErrors()){
+			return "user-register";
+		}
 		userService.save(user);
 		return "redirect:/register.html?success=true";
 	}
@@ -94,7 +100,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/newtopic", method=RequestMethod.POST)
-	public String newTopic(@ModelAttribute("topic") Topic topic, @ModelAttribute("post") Post post, Principal principal){
+	public String newTopic(@Valid @ModelAttribute("topic") Topic topic, BindingResult topicResult, @Valid @ModelAttribute("post") Post post, BindingResult postResult, Principal principal){
+		if(topicResult.hasErrors() || topicResult.hasErrors()){
+			return "newtopic";
+		}
 		String name = principal.getName();
 		topicService.saveTopic(topic, post, name);
 		return "redirect:/index.html";
@@ -115,7 +124,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/newpost", method=RequestMethod.POST)
-	public String newPost(@ModelAttribute("post") Post post, Principal principal) {
+	public String newPost(@Valid @ModelAttribute("post") Post post, BindingResult result, Principal principal) {
+		if(result.hasErrors()) {
+			return "newpost";
+		}
 		String name = principal.getName();
 		postService.save(post, name, idTopic);
 		return "redirect:/topic/" + idTopic + ".html";

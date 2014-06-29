@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/taglib.jsp"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -18,18 +19,22 @@ $(document).ready(function() {
 	<thead>
 		<tr>
 			<th>Użytkownicy</th>
-			<th>Zarządzanie</th>
+			<security:authorize access="hasRole('ROLE_ADMIN')">
+				<th>Zarządzanie</th>
+			</security:authorize>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach items="${users}" var="user">
 			<tr>
 				<td>
-					<a href="<spring:url value="/users/${user.id}.html" />">${user.name}</a>
+					<a href="<spring:url value="/users/${user.id}.html" />"><c:out value="${user.name}" /></a>
 				</td>
+				<security:authorize access="hasRole('ROLE_ADMIN')">
 				<td>
 					<a href="<spring:url value="/user/remove/${user.id}.html" />" class="btn btn-danger btn-sm triggerRemove">Usuń</a>
 				</td>
+				</security:authorize>
 			</tr>
 		</c:forEach>
 	</tbody>
