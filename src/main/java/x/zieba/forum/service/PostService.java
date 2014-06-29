@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import x.zieba.forum.entity.Post;
@@ -37,8 +39,15 @@ public class PostService {
 		post.setPublishedDate(new Date());
 		postRepository.save(post);
 	}
-
-	public void delete(int id) {
-		postRepository.delete(id);
+	
+	public Post findOne(int id) {
+		return postRepository.findOne(id);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')") 
+	public void delete(@P("topic") Post post) {
+		postRepository.delete(post);
+	}
+
+
 }

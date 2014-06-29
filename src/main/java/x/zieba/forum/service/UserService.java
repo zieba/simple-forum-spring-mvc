@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.access.method.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -80,7 +82,8 @@ public class UserService {
 		return findOneWithTopics(user.getId());
 	}
 
-	public void delete(int id) {
-		userRepository.delete(id);
+	@PreAuthorize("hasRole('ROLE_ADMIN')") 
+	public void delete(@P("topic") User user) {
+		userRepository.delete(user);
 	}
 }

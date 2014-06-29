@@ -123,19 +123,22 @@ public class UserController {
 	
 	@RequestMapping("/topic/remove/{id}")
 	public String removeTopic(@PathVariable int id) {
-		topicService.delete(id);
+		Topic topic = topicService.findOne(id);
+		topicService.delete(topic);
 		return "redirect:/index.html";
 	}
 	
 	@RequestMapping("/user/remove/{id}")
 	public String removeUser(@PathVariable int id) {
-		userService.delete(id);
+		User user = userService.findOne(id);
+		userService.delete(user);
 		return "redirect:/users.html";
 	}
 	
 	@RequestMapping("/post/remove/{id}")
 	public String removePost(@PathVariable int id){
-		postService.delete(id);
+		Post post = postService.findOne(id);
+		postService.delete(post);
 		return "redirect:/index.html";
 	}
 
