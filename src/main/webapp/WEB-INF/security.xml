@@ -29,11 +29,11 @@
 		<password-encoder hash="bcrypt" />
 		
 			<jdbc-user-service data-source-ref="dataSource"
-				authorities-by-username-query="select user.name, role.name from user
-											   join user_role on user.id = user_role.users_id
-											   join role on user_role.roles_id = role.id
-											   where user.name = ?"
-				users-by-username-query="select name,password,enabled from user where name = ?" />
+				authorities-by-username-query="select forum_user.name, role.name from forum_user
+											   join forum_user_role on forum_user.id = forum_user_role.users_id
+											   join role on forum_user_role.roles_id = role.id
+											   where forum_user.name = ?"
+				users-by-username-query="select name,password,enabled from forum_user where name = ?" />
 		</authentication-provider>
 	</authentication-manager>
 

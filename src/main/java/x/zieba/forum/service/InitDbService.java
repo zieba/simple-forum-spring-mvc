@@ -38,7 +38,7 @@ public class InitDbService {
 	
 	@PostConstruct
 	public void init() {
-		
+		if(roleRepository.findByName("ROLE_ADMIN") == null){
 		Role roleUser = new Role();
 		roleUser.setName("ROLE_USER");
 		roleRepository.save(roleUser);
@@ -51,7 +51,7 @@ public class InitDbService {
 		userAdmin.setEnabled(true);
 		userAdmin.setName("admin");
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		userAdmin.setPassword(encoder.encode("admin"));
+		userAdmin.setPassword(encoder.encode("NTPadmin"));
 		List<Role> roles = new ArrayList<Role>();
 		roles.add(roleAdmin);
 		roles.add(roleUser);
@@ -75,6 +75,7 @@ public class InitDbService {
 		post2.setText("Drugi post!");
 		post2.setPublishedDate(new Date());
 		postRepository.save(post2);
+		}
 	}
 	
 
