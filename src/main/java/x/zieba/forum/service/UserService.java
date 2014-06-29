@@ -61,6 +61,18 @@ public class UserService {
 		user.setPosts(posts);
 		return user;
 	}
+	
+	public User findOneWithTopicsAll(int id) {
+		User user = findOne(id);
+		PageRequest request = new PageRequest(0, 20, Direction.DESC, "publishedDate");
+		List<Post> posts = postRepository.findByUser(user, request);
+		for (Post post : posts) {
+			Topic topic = findOneTopic(post.getTopic().getId());
+			post.setTopic(topic);
+		}
+		user.setPosts(posts);
+		return user;
+	}
 
 	public void save(User user) {
 		user.setEnabled(true);
@@ -81,9 +93,18 @@ public class UserService {
 		User user = userRepository.findByName(name);
 		return findOneWithTopics(user.getId());
 	}
+	
+	public User findOneWithTopicsAll(String name) {
+		User user = userRepository.findByName(name);
+		return findOneWithTopicsAll(user.getId());
+	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')") 
 	public void delete(@P("topic") User user) {
 		userRepository.delete(user);
+	}
+
+	public User findOne(String username) {
+		return userRepository.findByName(username);
 	}
 }

@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 public class Post {
@@ -17,6 +20,10 @@ public class Post {
 	@GeneratedValue
 	private Integer id;
 	
+	
+	@Lob
+	@Type(type="org.hibernate.type.StringClobType")
+	@Column(length = Integer.MAX_VALUE)
 	@Size(min=10, message = "Post musi posiadaæ co najmniej 10 znaków!")
 	private String text;
 	

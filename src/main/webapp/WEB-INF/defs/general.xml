@@ -55,4 +55,9 @@
 		<put-attribute name="current" value="newpost" />
 	</definition>
 	
+	<definition name="account" extends="common">
+		<put-attribute name="title" value="Użytkownik" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user-account.jsp" />
+		<put-attribute name="current" value="account" />
+	</definition>
 </tiles-definitions>

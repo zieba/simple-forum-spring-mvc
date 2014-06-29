@@ -63,25 +63,12 @@ public class UserController {
 		return "user-detail";
 	}
 	
-	@RequestMapping("/register")
-	public String showRegister() {
-		return "user-register";
-	}
-	
-	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String doRegister(@Valid @ModelAttribute("user") User user, BindingResult result) {
-		if(result.hasErrors()){
-			return "user-register";
-		}
-		userService.save(user);
-		return "redirect:/register.html?success=true";
-	}
 	
 	@RequestMapping("/account")
 	public String account(Model model, Principal principal) {
 		String name = principal.getName();
-		model.addAttribute("user", userService.findOneWithTopics(name));
-		return "user-detail";
+		model.addAttribute("user", userService.findOneWithTopicsAll(name));
+		return "account";
 	}
 	
 	@RequestMapping("/index")
@@ -101,7 +88,7 @@ public class UserController {
 	
 	@RequestMapping(value="/newtopic", method=RequestMethod.POST)
 	public String newTopic(@Valid @ModelAttribute("topic") Topic topic, BindingResult topicResult, @Valid @ModelAttribute("post") Post post, BindingResult postResult, Principal principal){
-		if(topicResult.hasErrors() || topicResult.hasErrors()){
+		if(topicResult.hasErrors() || postResult.hasErrors()){
 			return "newtopic";
 		}
 		String name = principal.getName();
@@ -133,25 +120,6 @@ public class UserController {
 		return "redirect:/topic/" + idTopic + ".html";
 	}
 	
-	@RequestMapping("/topic/remove/{id}")
-	public String removeTopic(@PathVariable int id) {
-		Topic topic = topicService.findOne(id);
-		topicService.delete(topic);
-		return "redirect:/index.html";
-	}
-	
-	@RequestMapping("/user/remove/{id}")
-	public String removeUser(@PathVariable int id) {
-		User user = userService.findOne(id);
-		userService.delete(user);
-		return "redirect:/users.html";
-	}
-	
-	@RequestMapping("/post/remove/{id}")
-	public String removePost(@PathVariable int id){
-		Post post = postService.findOne(id);
-		postService.delete(post);
-		return "redirect:/index.html";
-	}
+
 
 }
