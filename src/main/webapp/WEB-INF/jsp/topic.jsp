@@ -6,7 +6,7 @@
 
 <h1>${topic.name}</h1>
 
-<strong><a href="<spring:url value="/post/${topic.id}.html" />"> Napisz odpowiedź</a></strong>
+<strong><a href="<spring:url value="/newpost.html?id=${topic.id}" />"> Napisz odpowiedź</a></strong>
 
 
 

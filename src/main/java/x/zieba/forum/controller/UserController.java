@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import x.zieba.forum.entity.Post;
 import x.zieba.forum.entity.Topic;
@@ -20,6 +21,8 @@ import x.zieba.forum.service.UserService;
 
 @Controller
 public class UserController {
+	
+	private int idTopic;
 	
 	@Autowired
 	private UserService userService;
@@ -96,5 +99,29 @@ public class UserController {
 		topicService.saveTopic(topic, post, name);
 		return "redirect:/index.html";
 	}
+	
+	@RequestMapping(value = "/topic/{id}")
+	public String viewTopic(Model model, @PathVariable int id) {
+		model.addAttribute("topic", topicService.findOneWithPosts(id));
+		return "topic";
+	}
+	
+	@RequestMapping("/newpost")
+	public String showPostForm(Model model, @RequestParam("id") int id){
+		idTopic = id;
+		Post post = new Post();
+		model.addAttribute("post", post);
+		return "newpost";
+	}
+	
+	@RequestMapping(value="/newpost", method=RequestMethod.POST)
+	public String newPost(@ModelAttribute("post") Post post, Principal principal) {
+		String name = principal.getName();
+		postService.save(post, name, idTopic);
+		return "redirect:/index.html";
+	}
+	
+	
+	
 
 }

@@ -13,7 +13,7 @@
 		<c:forEach items="${topics}" var="topic">
 			<tr>
 				<td>
-					<a href="<spring:url value="/topic.html?id=${topic.id}" />">${topic.name}</a>
+					<a href="<spring:url value="/topic/${topic.id}.html" />">${topic.name}</a>
 				</td>
 			</tr>
 		</c:forEach>
